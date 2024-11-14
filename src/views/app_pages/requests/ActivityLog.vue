@@ -2,7 +2,7 @@
   <div class="editor-container">
     <el-card class="box-card">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="text-jumbo text-ginormous mb-0">
+        <h4 class="text-jumbo text-ginormous mb-0" v-if="checkPermission(['manage users'])">
           Manage Activity Log
         </h4>
         <div class="d-flex align-items-center">
@@ -16,20 +16,23 @@
         </div>
       </div>
 
-      <el-table :data="paginatedList" style="width: 100%; padding-top: 15px">
+      <el-table
+          v-loading="loading"
+        :key="tableKey"
+        highlight-current-row
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        :total="totalLog"
+        :data="list"
+        style="width: 100%; padding-top: 15px">
         <el-table-column label="S/N" width="50" align="center">
           <template slot-scope="scope">
             {{ (currentPage - 1) * pageSize + scope.$index + 1 }}
           </template>
         </el-table-column>
-        <el-table-column label="Causer" min-width="150">
+        <el-table-column label="Causer Name" min-width="150">
           <template slot-scope="scope">
-            {{ scope.row.causer }}
-          </template>
-        </el-table-column>
-        <el-table-column label="Subject" min-width="150">
-          <template slot-scope="scope">
-            {{ scope.row.subject }}
+            {{ scope.row.causer.name || 'N/A' }}
           </template>
         </el-table-column>
         <el-table-column label="Description" min-width="200">
@@ -37,29 +40,45 @@
             {{ scope.row.description }}
           </template>
         </el-table-column>
+        <el-table-column label="Subject Type" min-width="150">
+          <template slot-scope="scope">
+            {{ formatSubjectType(scope.row.subject_type) }}
+          </template>
+        </el-table-column>
         <el-table-column label="Date" min-width="150">
           <template slot-scope="scope">
-            {{ scope.row.date }}
+            {{ scope.row.created_at | formatDate }}
           </template>
         </el-table-column>
       </el-table>
 
       <div class="d-flex justify-content-between align-items-center pt-4">
-        <div>
-          Showing {{ (currentPage - 1) * pageSize + 1 }} to
-          {{ Math.min(currentPage * pageSize, total) }} of {{ total }} entries
+        <div class="showing_items">
+          <span>
+          Showing {{ from }} to {{ to }} of {{ totalLog }} entries
+          </span>
         </div>
         <div class="d-flex align-items-center">
-          <el-select v-model="pageSize" placeholder="Items per page" @change="handleSizeChange" style="width: 120px;">
-            <el-option v-for="size in pageSizes" :key="size" :label="size === total ? 'All' : size" :value="size" />
+          <el-select
+            v-model="pageSize"
+            placeholder="Items per page"
+            @change="handleSizeChange"
+            style="width: 120px; margin-right: 10px;"
+          >
+            <el-option
+              v-for="size in pageSizes"
+              :key="size"
+              :label="size"
+              :value="size"
+            />
           </el-select>
           <el-pagination
             small
             layout="prev, pager, next"
-            v-show="total > 0"
-            :total="total"
+            v-show="totalLog > 0"
+            :total="totalLog"
             :current-page.sync="currentPage"
-            :page-size.sync="pageSize"
+            :page-size="pageSize"
             @current-change="handlePageChange"
           />
         </div>
@@ -69,59 +88,93 @@
 </template>
 
 <script>
+import checkPermission from '@/utils/permission'
+import axios from 'axios'
+import { getToken } from '@/utils/auth'
+
 export default {
   data() {
     return {
+      loading: true,
       list: [],
       currentPage: 1,
       pageSize: 5,
-      total: 0,
-      pageSizes: [5, 10, 20, 50, 'All'],
+      totalLog: 0,
+      from: 0,
+      to: 0,
+      pageSizes: [5, 10, 15, 20, 50],
       listQuery: {
         search: "",
       },
     };
   },
-  computed: {
-    paginatedList() {
-      const filteredList = this.list.filter((activity) =>
-        activity.causer.toLowerCase().includes(this.listQuery.search.toLowerCase()) ||
-        activity.subject.toLowerCase().includes(this.listQuery.search.toLowerCase()) ||
-        activity.description.toLowerCase().includes(this.listQuery.search.toLowerCase())
-      );
-      this.total = filteredList.length;
-      const start = (this.currentPage - 1) * this.pageSize;
-      const end = this.pageSize === 'All' ? this.total : start + this.pageSize;
-      return filteredList.slice(start, end);
-    }
-  },
+  // computed: {
+  //   paginatedList() {
+  //     const filteredList = this.list.filter((activity) =>
+  //       activity.causer.toLowerCase().includes(this.listQuery.search.toLowerCase()) ||
+  //       activity.subject.toLowerCase().includes(this.listQuery.search.toLowerCase()) ||
+  //       activity.description.toLowerCase().includes(this.listQuery.search.toLowerCase())
+  //     );
+  //     this.totalLog = filteredList.length;
+  //     const start = (this.currentPage - 1) * this.pageSize;
+  //     const end = this.pageSize === 'All' ? this.totalLog : start + this.pageSize;
+  //     return filteredList.slice(start, end);
+  //   }
+  // },
   created() {
     this.fetchData();
   },
   methods: {
-    fetchData() {
-      // Mock data for demonstration purposes
-      this.list = [
-        { causer: "John Doe", subject: "Login", description: "User logged in", date: "2023-10-01" },
-        { causer: "Jane Smith", subject: "Update Profile", description: "Profile updated", date: "2023-10-02" },
-        { causer: "Alice Johnson", subject: "Logout", description: "User logged out", date: "2023-10-03" },
-        { causer: "Bob Brown", subject: "Password Change", description: "Password changed", date: "2023-10-04" },
-        { causer: "Charlie Davis", subject: "Login", description: "User logged in", date: "2023-10-05" },
-        { causer: "Diana Evans", subject: "Delete Account", description: "Account deleted", date: "2023-10-06" },
-        { causer: "Ethan Harris", subject: "Login", description: "User logged in", date: "2023-10-07" },
-        { causer: "Fiona Green", subject: "Update Profile", description: "Profile updated", date: "2023-10-08" }
-      ];
-      this.total = this.list.length;
+    checkPermission,
+
+    formatSubjectType(type) {
+      if (!type) return 'N/A';
+      return type.split('\\').pop();
     },
+
+    async fetchData() {
+      this.loading = true;
+      try {
+        const response = await axios.get(
+          this.dynamic_base_url('logs/activity-logs'),
+          {
+            headers: { Authorization: `Bearer ${getToken()}` },
+            params: {
+              page: this.currentPage,
+              per_page: this.pageSize,
+              search: this.listQuery.search
+            }
+          }
+        );
+
+        const { activities } = response.data.data;
+        this.list = activities.data;
+        this.totalLog = activities.total;
+        this.from = activities.from;
+        this.to = activities.to;
+        this.currentPage = activities.current_page;
+      } catch (error) {
+        console.error("Error fetching activity logs:", error);
+        this.$message.error('Failed to fetch activity logs');
+      } finally {
+        this.loading = false;
+      }
+    },
+
     handlePageChange(page) {
       this.currentPage = page;
+      this.fetchData();
     },
+
     handleSizeChange(size) {
-      this.pageSize = size === 'All' ? this.total : size;
-      this.currentPage = 1; // Reset to first page on size change
+      this.pageSize = size;
+      this.currentPage = 1;
+      this.fetchData();
     },
+
     handleSearch() {
-      this.currentPage = 1; // Reset to first page on search
+      this.currentPage = 1;
+      this.fetchData();
     }
   }
 };

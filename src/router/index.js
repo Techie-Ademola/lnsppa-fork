@@ -23,7 +23,7 @@ import nestedRouter from './modules/nested'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    roles: ['manage users','editor']    control the page roles (you can set multiple roles)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
@@ -168,26 +168,26 @@ export const asyncRoutes = [
     meta: {
       title: 'User Management',
       icon: 'user',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['manage users', 'Client'] // you can set roles in root nav
     },
     children: [
       {
         path: 'users',
         component: () => import('@/views/app_pages/users/Index'),
         name: 'users',
-        meta: { title: 'Users', roles: ['admin'] }
+        meta: { title: 'Users', roles: ['manage users'] }
       },
       {
         path: 'roles-permission',
         component: () => import('@/views/app_pages/roles-permission/Index'),
         name: 'roles-permission',
-        meta: { title: 'Roles & Permission', roles: ['admin'] }
+        meta: { title: 'Roles & Permission', roles: ['manage users'] }
       },
       {
         path: 'activity-log',
         component: () => import('@/views/app_pages/requests/ActivityLog'),
         name: 'activity-log',
-        meta: { title: 'Activity Log', roles: ['admin', 'editor'] }
+        meta: { title: 'Activity Log', roles: ['manage users', 'Client'] }
       }
     ]
   },
@@ -199,20 +199,20 @@ export const asyncRoutes = [
     meta: {
       title: 'Configuration',
       icon: 'tree',
-      roles: ['admin']
+      roles: ['manage users']
     },
     children: [
       {
         path: 'state',
         component: () => import('@/views/app_pages/configuration/State'),
         name: 'state',
-        meta: { title: 'State', roles: ['admin'] }
+        meta: { title: 'State', roles: ['manage users'] }
       },
       {
         path: 'lga',
         component: () => import('@/views/app_pages/configuration/LGA'),
         name: 'lga',
-        meta: { title: 'LGA', roles: ['admin'] }
+        meta: { title: 'LGA', roles: ['manage users'] }
       }
     ]
   },
@@ -224,44 +224,44 @@ export const asyncRoutes = [
     meta: {
       title: 'Plate No Generation',
       icon: 'tab',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['manage users', 'Client'] // you can set roles in root nav
     },
     children: [
       {
         path: 'batch-number-generation',
         component: () => import('@/views/app_pages/plate-generation/BatchNumberGeneration'),
         name: 'batch-number-generation',
-        meta: { title: 'Batch No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Batch No. Generation', roles: ['manage users', 'Client'] }
       },
       {
         path: 'special-plate-number-generation',
         component: () => import('@/views/app_pages/plate-generation/SpecialPlateNumberGeneration'),
         name: 'special-plate-number-generation',
-        meta: { title: 'Special Plate No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Special Plate No. Generation', roles: ['manage users', 'Client'] }
       },
       {
         path: 'personalised-vehicle-number-generation',
         component: () => import('@/views/app_pages/plate-generation/PersonalisedVehicleNumberGeneration'),
         name: 'personalised-vehicle-number-generation',
-        meta: { title: 'Personalised Vehicle No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Personalised Vehicle No. Generation', roles: ['manage users', 'Client'] }
       },
       {
         path: 'articulated-number-generation',
         component: () => import('@/views/app_pages/plate-generation/ArticulatedNumberGeneration'),
         name: 'articulated-number-generation',
-        meta: { title: 'Articulated No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Articulated No. Generation', roles: ['manage users', 'Client'] }
       },
       {
         path: 'replacement-number-generation',
         component: () => import('@/views/app_pages/plate-generation/ReplacementNumberGeneration'),
         name: 'replacement-number-generation',
-        meta: { title: 'Replacement No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Replacement No. Generation', roles: ['manage users', 'Client'] }
       },
       {
         path: 'manual-plate-number-generation',
         component: () => import('@/views/app_pages/plate-generation/ManualPlateNumberGeneration'),
         name: 'manual-plate-number-generation',
-        meta: { title: 'Manual Plate No. Generation', roles: ['admin', 'editor'] }
+        meta: { title: 'Manual Plate No. Generation', roles: ['manage users', 'Client'] }
       }
     ]
   },
@@ -273,20 +273,20 @@ export const asyncRoutes = [
     meta: {
       title: 'Requests',
       icon: 'form',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['manage users', 'Client'] // you can set roles in root nav
     },
     children: [
       {
         path: 'batch-requests',
         component: () => import('@/views/app_pages/requests/BatchRequests'),
         name: 'batch-requests',
-        meta: { title: 'Batch Requests', roles: ['admin', 'editor'] }
+        meta: { title: 'Batch Requests', roles: ['manage users', 'Client'] }
       },
       {
         path: 'transactions',
         component: () => import('@/views/app_pages/requests/Transactions'),
         name: 'transactions',
-        meta: { title: 'Transactions', roles: ['admin', 'editor'] }
+        meta: { title: 'Transactions', roles: ['manage users', 'Client'] }
       },
     ]
   },
@@ -298,38 +298,38 @@ export const asyncRoutes = [
     meta: {
       title: 'Reports',
       icon: 'documentation',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      roles: ['manage users', 'Client'] // you can set roles in root nav
     },
     children: [
       {
         path: 'plate-number-summary-report',
         component: () => import('@/views/app_pages/reports/PlateNumberSummaryReport'),
         name: 'plate-number-summary-report',
-        meta: { title: 'Plate No. Summary Report', roles: ['admin', 'editor'] }
+        meta: { title: 'Plate No. Summary Report', roles: ['manage users', 'Client'] }
       },
       {
         path: 'special-plate-number-report',
         component: () => import('@/views/app_pages/reports/SpecialPlateNumberReport'),
         name: 'special-plate-number-report',
-        meta: { title: 'Special Plate No. Report', roles: ['admin', 'editor'] }
+        meta: { title: 'Special Plate No. Report', roles: ['manage users', 'Client'] }
       },
       {
         path: 'personalised-vehicle-number-report',
         component: () => import('@/views/app_pages/reports/PersonalisedVehicleNumberReport'),
         name: 'personalised-vehicle-number-report',
-        meta: { title: 'Personalised Vehicle No. Report', roles: ['admin', 'editor'] }
+        meta: { title: 'Personalised Vehicle No. Report', roles: ['manage users', 'Client'] }
       },
       {
         path: 'articulated-number-plate-report',
         component: () => import('@/views/app_pages/reports/ArticulatedNumberPlateReport'),
         name: 'articulated-number-plate-report',
-        meta: { title: 'Articulated No. Plate Report', roles: ['admin', 'editor'] }
+        meta: { title: 'Articulated No. Plate Report', roles: ['manage users', 'Client'] }
       },
       {
         path: 'all-generated-plate-numbers',
         component: () => import('@/views/app_pages/reports/AllGeneratedPlateNumbers'),
         name: 'all-generated-plate-numbers',
-        meta: { title: 'All Generated Plate No.s', roles: ['admin', 'editor'] }
+        meta: { title: 'All Generated Plate No.s', roles: ['manage users', 'Client'] }
       }
     ]
   },
@@ -338,259 +338,259 @@ export const asyncRoutes = [
 
 
 
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
-    name: 'Permission',
-    meta: {
-      title: 'Permission',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: 'Page Permission',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: 'Directive Permission'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/page',
+  //   alwaysShow: true, // will always show the root menu
+  //   name: 'Permission',
+  //   meta: {
+  //     title: 'Permission',
+  //     icon: 'lock',
+  //     roles: ['manage users', 'Client'] // you can set roles in root nav
+  //   },
+  //   children: [
+  //     {
+  //       path: 'page',
+  //       component: () => import('@/views/permission/page'),
+  //       name: 'PagePermission',
+  //       meta: {
+  //         title: 'Page Permission',
+  //         roles: ['manage users'] // or you can only set roles in sub nav
+  //       }
+  //     },
+  //     {
+  //       path: 'directive',
+  //       component: () => import('@/views/permission/directive'),
+  //       name: 'DirectivePermission',
+  //       meta: {
+  //         title: 'Directive Permission'
+  //         // if do not set roles, means: this page does not require permission
+  //       }
+  //     },
+  //     {
+  //       path: 'role',
+  //       component: () => import('@/views/permission/role'),
+  //       name: 'RolePermission',
+  //       meta: {
+  //         title: 'Role Permission',
+  //         roles: ['manage users']
+  //       }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/icons/index'),
+  //       name: 'Icons',
+  //       meta: { title: 'Icons', icon: 'icon', noCache: true }
+  //     }
+  //   ]
+  // },
 
-  /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
+  // /** when your routing map is too long, you can split it into small modules **/
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/list',
-    name: 'Example',
-    meta: {
-      title: 'Example',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        path: 'create',
-        component: () => import('@/views/example/create'),
-        name: 'CreateArticle',
-        meta: { title: 'Create Article', icon: 'edit' }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
-      }
-    ]
-  },
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/list',
+  //   name: 'Example',
+  //   meta: {
+  //     title: 'Example',
+  //     icon: 'el-icon-s-help'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'create',
+  //       component: () => import('@/views/example/create'),
+  //       name: 'CreateArticle',
+  //       meta: { title: 'Create Article', icon: 'edit' }
+  //     },
+  //     {
+  //       path: 'edit/:id(\\d+)',
+  //       component: () => import('@/views/example/edit'),
+  //       name: 'EditArticle',
+  //       meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+  //       hidden: true
+  //     },
+  //     {
+  //       path: 'list',
+  //       component: () => import('@/views/example/list'),
+  //       name: 'ArticleList',
+  //       meta: { title: 'Article List', icon: 'list' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/tab',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: 'Tab',
-        meta: { title: 'Tab', icon: 'tab' }
-      }
-    ]
-  },
+  // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/tab/index'),
+  //       name: 'Tab',
+  //       meta: { title: 'Tab', icon: 'tab' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'Error Pages',
-      icon: '404'
-    },
-    children: [
-      {
-        path: '401',
-        component: () => import('@/views/error-page/401'),
-        name: 'Page401',
-        meta: { title: '401', noCache: true }
-      },
-      {
-        path: '404',
-        component: () => import('@/views/error-page/404'),
-        name: 'Page404',
-        meta: { title: '404', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/error',
+  //   component: Layout,
+  //   redirect: 'noRedirect',
+  //   name: 'ErrorPages',
+  //   meta: {
+  //     title: 'Error Pages',
+  //     icon: '404'
+  //   },
+  //   children: [
+  //     {
+  //       path: '401',
+  //       component: () => import('@/views/error-page/401'),
+  //       name: 'Page401',
+  //       meta: { title: '401', noCache: true }
+  //     },
+  //     {
+  //       path: '404',
+  //       component: () => import('@/views/error-page/404'),
+  //       name: 'Page404',
+  //       meta: { title: '404', noCache: true }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/error-log',
-    component: Layout,
-    children: [
-      {
-        path: 'log',
-        component: () => import('@/views/error-log/index'),
-        name: 'ErrorLog',
-        meta: { title: 'Error Log', icon: 'bug' }
-      }
-    ]
-  },
+  // {
+  //   path: '/error-log',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'log',
+  //       component: () => import('@/views/error-log/index'),
+  //       name: 'ErrorLog',
+  //       meta: { title: 'Error Log', icon: 'bug' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: 'Excel',
-    meta: {
-      title: 'Excel',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
+  // {
+  //   path: '/excel',
+  //   component: Layout,
+  //   redirect: '/excel/export-excel',
+  //   name: 'Excel',
+  //   meta: {
+  //     title: 'Excel',
+  //     icon: 'excel'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'export-excel',
+  //       component: () => import('@/views/excel/export-excel'),
+  //       name: 'ExportExcel',
+  //       meta: { title: 'Export Excel' }
+  //     },
+  //     {
+  //       path: 'export-selected-excel',
+  //       component: () => import('@/views/excel/select-excel'),
+  //       name: 'SelectExcel',
+  //       meta: { title: 'Export Selected' }
+  //     },
+  //     {
+  //       path: 'export-merge-header',
+  //       component: () => import('@/views/excel/merge-header'),
+  //       name: 'MergeHeader',
+  //       meta: { title: 'Merge Header' }
+  //     },
+  //     {
+  //       path: 'upload-excel',
+  //       component: () => import('@/views/excel/upload-excel'),
+  //       name: 'UploadExcel',
+  //       meta: { title: 'Upload Excel' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    name: 'Zip',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'download',
-        component: () => import('@/views/zip/index'),
-        name: 'ExportZip',
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
+  // {
+  //   path: '/zip',
+  //   component: Layout,
+  //   redirect: '/zip/download',
+  //   alwaysShow: true,
+  //   name: 'Zip',
+  //   meta: { title: 'Zip', icon: 'zip' },
+  //   children: [
+  //     {
+  //       path: 'download',
+  //       component: () => import('@/views/zip/index'),
+  //       name: 'ExportZip',
+  //       meta: { title: 'Export Zip' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/pdf',
-    component: Layout,
-    redirect: '/pdf/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/pdf/index'),
-        name: 'PDF',
-        meta: { title: 'PDF', icon: 'pdf' }
-      }
-    ]
-  },
-  {
-    path: '/pdf/download',
-    component: () => import('@/views/pdf/download'),
-    hidden: true
-  },
+  // {
+  //   path: '/pdf',
+  //   component: Layout,
+  //   redirect: '/pdf/index',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/pdf/index'),
+  //       name: 'PDF',
+  //       meta: { title: 'PDF', icon: 'pdf' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/pdf/download',
+  //   component: () => import('@/views/pdf/download'),
+  //   hidden: true
+  // },
 
-  {
-    path: '/theme',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'Theme', icon: 'theme' }
-      }
-    ]
-  },
+  // {
+  //   path: '/theme',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/theme/index'),
+  //       name: 'Theme',
+  //       meta: { title: 'Theme', icon: 'theme' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/clipboard',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/clipboard/index'),
-        name: 'ClipboardDemo',
-        meta: { title: 'Clipboard', icon: 'clipboard' }
-      }
-    ]
-  },
+  // {
+  //   path: '/clipboard',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/clipboard/index'),
+  //       name: 'ClipboardDemo',
+  //       meta: { title: 'Clipboard', icon: 'clipboard' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://github.com/PanJiaChen/vue-element-admin',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

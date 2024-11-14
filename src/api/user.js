@@ -8,16 +8,30 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo(token, userId) {
   return request({
-    url: '/client/profile',
-    method: 'get'
+    url: `/user/show/${userId}`,
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
+export function fetchAllUsers(token, filter_params) {
+  return request({
+    url: `/user/users`,
+    method: 'get',
+    body: filter_params,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
 }
 
 export function logout() {
   return request({
-    url: '/logout',
+    url: '/auth/logout',
     method: 'post'
   })
 }

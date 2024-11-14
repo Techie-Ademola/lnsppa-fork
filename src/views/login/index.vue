@@ -172,7 +172,9 @@
             this.$store.dispatch('user/login', this.loginForm)
               .then((res) => {
                 // this.redirect ||
-                this.$router.push({ path: '/dashboard', query: this.otherQuery })
+                              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+
+                // this.$router.push({ path: '/dashboard' })
                 this.loading = false
               })
               .catch((e) => {

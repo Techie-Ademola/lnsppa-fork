@@ -192,7 +192,7 @@
                 -->
                 <li
                   tabindex="-1"
-                  v-if="isAdmin() == 'admin' && scope.row.status === 'PENDING'"
+                  v-if="isAdmin() == 'Super Admin' && scope.row.status === 'PENDING'"
                   class="el-dropdown-menu__item py-1"
                   @click="reRunQuery(scope.row)"
                 >

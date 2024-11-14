@@ -3,8 +3,6 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Bearer'
 
 export function getToken() {
-  let token = Cookies.get(TokenKey);
-  console.log('Cookies token:', token);
   return Cookies.get(TokenKey)
 }
 

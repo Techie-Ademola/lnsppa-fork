@@ -78,6 +78,19 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+
+      // try {
+      //   const response = await this.$store.dispatch('user/logout')
+      //   console.log('response :', response);
+      //   if (response.message === "Unable to logout user, Please reload the page.") {
+      //     window.location.reload()
+      //   } else {
+      //     this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      //   }
+      // } catch (error) {
+      //   console.error('Logout failed:', error)
+      //   // Optionally handle errors here
+      // }
     }
   }
 }

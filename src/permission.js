@@ -19,17 +19,23 @@ router.beforeEach(async(to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken()
+
   if (hasToken) {
+    // console.log('hasToken:', hasToken);
     if (to.path === '/login' || to.path === '/forgot-password') {
       // if is logged in, redirect to the home page
       next({ path: '/dashboard' })
       NProgress.done()
     } else {
+      // console.log('entered else hasToken');
       // determine whether the user has obtained his permission roles through getInfo
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
+
       if (hasRoles) {
+        // console.log('hasRoles', hasRoles);
+        // console.log('has roles:', hasRoles, store.getters.roles);
         if (
-          store.getters.roles === 'super_admin' ||
+          store.getters.roles === 'Super Admin' ||
           store.getters.roles === 'admin'
         ) {
           next()
@@ -39,13 +45,24 @@ router.beforeEach(async(to, from, next) => {
           next()
         }
       } else {
+        // console.log('entered else hasRoles');
+
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['client']
-          var data = await store.dispatch('user/getInfo')
-          const role = data.data.role
+          var res = await store.dispatch('user/getInfo')
+          const { data } = res;
+
+        // console.log('router.beforeEach data:', data.data.user.roles);
+
+          const allroles = data.data.user.roles[0];
+
+        const allPermNames = allroles ? allroles.permissions.map(permission => permission.name) : [];
+
+        // console.log('router.beforeEach role:', allPermNames);
+
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', role)
+          const accessRoutes = await store.dispatch('permission/generateRoutes', allPermNames)
 
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
@@ -63,7 +80,7 @@ router.beforeEach(async(to, from, next) => {
       }
     }
   } else {
-    /* has no token*/
+    /* has no token */
 
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly

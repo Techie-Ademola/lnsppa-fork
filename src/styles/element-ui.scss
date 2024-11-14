@@ -90,3 +90,16 @@
 .fit-content {
   width: fit-content !important;
 }
+
+.showing_items {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 50px;
+  margin-left: 8px;
+
+}
+
+.showing_items span {
+  color: #97a8be;
+  cursor: text;
+}

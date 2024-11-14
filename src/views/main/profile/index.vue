@@ -26,7 +26,7 @@
                 <!-- <billing :user="user" /> -->
               </el-tab-pane>
               <el-tab-pane
-                v-if="isAdmin() == 'admin'"
+                v-if="isAdmin() == 'Super Admin'"
                 label="Site Settings"
                 name="update-settings"
               >
@@ -38,7 +38,7 @@
                 <!-- <update-settings :user="user" /> -->
               </el-tab-pane>
               <el-tab-pane
-                v-if="isAdmin() == 'admin'"
+                v-if="isAdmin() == 'Super Admin'"
                 label="Domain Pricing"
                 name="pricing"
               >
@@ -50,7 +50,7 @@
                 <!-- <pricing :user="user" /> -->
               </el-tab-pane>
               <el-tab-pane
-                v-if="isAdmin() == 'admin'"
+                v-if="isAdmin() == 'Super Admin'"
                 label="Domain TLD"
                 name="tld"
               >
@@ -62,7 +62,7 @@
                 <!-- <TLDTab :user="user" /> -->
               </el-tab-pane>
               <el-tab-pane
-                v-if="isAdmin() == 'admin'"
+                v-if="isAdmin() == 'Super Admin'"
                 label="Payment Gateway"
                 name="gateway"
               >

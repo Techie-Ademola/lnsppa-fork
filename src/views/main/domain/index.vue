@@ -2,7 +2,7 @@
   <div class="icons-container">
     <div
       class="get_domain_btn d-flex d-none d-lg-block pe-3"
-      v-if="isAdmin() == 'admin'"
+      v-if="isAdmin() == 'Super Admin'"
     >
       <el-button
         size="small"
@@ -99,7 +99,7 @@
                   </el-button>
 
                   <el-button
-                    v-if="isAdmin() == 'admin'"
+                    v-if="isAdmin() == 'Super Admin'"
                     size="small"
                     type="primary"
                     class="btn btn-primary text-white pull-right d-flex align-items-center"
@@ -121,7 +121,7 @@
                   </el-button>
 
                   <el-button
-                    v-if="isAdmin() == 'admin'"
+                    v-if="isAdmin() == 'Super Admin'"
                     size="small"
                     type="primary"
                     class="btn btn-primary text-white pull-right d-flex align-items-center"
@@ -195,7 +195,7 @@
           </el-col>
         </el-row>
       </el-tab-pane>
-      <el-tab-pane label="Enoms" v-if="isAdmin() == 'admin'" name="all-enoms">
+      <el-tab-pane label="Enoms" v-if="isAdmin() == 'Super Admin'" name="all-enoms">
         <el-row :gutter="8">
           <el-col
             :xs="{ span: 24 }"
@@ -300,7 +300,7 @@
           </el-col>
         </el-row>
       </el-tab-pane>
-      <el-tab-pane label="Enoms" v-if="isAdmin() == 'admin'" name="all-enoms">
+      <el-tab-pane label="Enoms" v-if="isAdmin() == 'Super Admin'" name="all-enoms">
         <el-row :gutter="8">
           <el-col
             :xs="{ span: 24 }"

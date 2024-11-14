@@ -27,37 +27,27 @@ service.interceptors.request.use(
 )
 
 // response interceptor
+// response interceptor
 service.interceptors.response.use(
-  /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-  */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
   response => {
-    const res = response.data
-    // console.log('Api response', res)
-    // Handle successful responses
-    if (res.status === true || res.code === 200 || res.success === true) {
-      sessionStorage.setItem('user_details', JSON.stringify(res.data))
-      Message({
-        message: res.message || 'Successful',
-        type: 'success',
-        duration: 5 * 1000
-      })
-      return res
+    const res = response.data;
+
+    // Check for the successful response structure
+    if (res.status === "success" || res.status === true || res.code === 200 || res.success === true) {
+      sessionStorage.setItem('user_details', JSON.stringify(res.data));
+      // Message({
+      //   message: res.message || 'Successful',
+      //   type: 'success',
+      //   duration: 5 * 1000
+      // });
+      return response; // Return the full response
     } else {
-      // console.log(res)
-      // Handle API errors with non-200 status codes
+      // Handle errors when response status does not match expected values
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
-      })
+      });
 
       // Handle specific error codes if needed
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -67,43 +57,38 @@ service.interceptors.response.use(
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
-        })
+            location.reload();
+          });
+        });
       }
 
       // Reject the promise with the error
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(res.message || 'Error'));
     }
   },
   error => {
     // Handle network errors or other unexpected errors
     if (error.response) {
-      // The request was made and the server responded with a non-2xx status code
-      // Access the error details from the API response
-      const res = error.response.data
-      // console.log(res)
+      const res = error.response.data;
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
-      })
+      });
     } else {
-      // The request was made but no response was received
       Message({
         message: error.message || 'Error',
         type: 'error',
         duration: 5 * 1000
-      })
+      });
     }
 
     // Reject the promise with the error
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
+);
 
-)
-
-export default service
+export default service;
 
 
 
